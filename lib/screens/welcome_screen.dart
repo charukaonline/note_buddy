@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../screens/auth/signup_screen.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
@@ -33,7 +34,12 @@ class WelcomeScreen extends StatelessWidget {
               const SizedBox(height: 48.0),
               ElevatedButton(
                 onPressed: () {
-                  // TODO: Navigate to notes screen
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => SignupScreen(),
+                    ),
+                  );
                 },
                 child: const Padding(
                   padding: EdgeInsets.all(16.0),
