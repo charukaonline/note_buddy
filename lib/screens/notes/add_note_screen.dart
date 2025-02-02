@@ -3,6 +3,8 @@ import '../../services/firestore_service.dart';
 import '../home/home_screen.dart';
 
 class AddNoteScreen extends StatefulWidget {
+  const AddNoteScreen({super.key});
+
   @override
   _AddNoteScreenState createState() => _AddNoteScreenState();
 }
