@@ -19,4 +19,23 @@ class FirestoreService {
       print("Error adding note: $e");
     }
   }
+
+  // Get notes for the current user
+  Stream<QuerySnapshot> getUserNotes() {
+    String userId = _auth.currentUser!.uid;
+    return _firestore
+        .collection("notes")
+        .where("userId", isEqualTo: userId)
+        .orderBy("timestamp", descending: true)
+        .snapshots();
+  }
+
+  // Delete a note
+  Future<void> deleteNote(String noteId) async {
+    try {
+      await _firestore.collection("notes").doc(noteId).delete();
+    } catch (e) {
+      print("Error deleting note: $e");
+    }
+  }
 }
