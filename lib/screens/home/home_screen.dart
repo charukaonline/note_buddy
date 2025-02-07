@@ -5,12 +5,18 @@ import '../auth/login_screen.dart';
 import '../notes/add_note_screen.dart';
 import '../../services/auth_service.dart';
 import '../../services/firestore_service.dart';
+import '../notes/edit_note_screen.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
+  HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   final AuthService _authService = AuthService();
   final FirestoreService _firestoreService = FirestoreService();
-
-  HomeScreen({super.key});
 
   void _logout(BuildContext context) async {
     await _authService.logout();
@@ -20,7 +26,7 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-   @override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -49,16 +55,35 @@ class HomeScreen extends StatelessWidget {
             itemCount: notes.length,
             itemBuilder: (context, index) {
               var note = notes[index];
-              return Card(
-                margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                child: ListTile(
-                  title: Text(note["title"], style: TextStyle(fontWeight: FontWeight.bold)),
-                  subtitle: Text(note["content"]),
-                  trailing: IconButton(
-                    icon: Icon(Icons.delete, color: Colors.red),
-                    onPressed: () {
-                      _firestoreService.deleteNote(note.id);
-                    },
+
+              return InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => EditNoteScreen(
+                        noteId: note.id, // Pass note ID
+                        initialTitle: note["title"], // Pass note title
+                        initialContent: note["content"], // Pass note content
+                      ),
+                    ),
+                  ).then((_) {
+                    // Refresh home screen after editing
+                    setState(() {});
+                  });
+                },
+                child: Card(
+                  margin: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                  child: ListTile(
+                    title: Text(note["title"],
+                        style: TextStyle(fontWeight: FontWeight.bold)),
+                    subtitle: Text(note["content"]),
+                    trailing: IconButton(
+                      icon: Icon(Icons.delete, color: Colors.red),
+                      onPressed: () {
+                        _firestoreService.deleteNote(note.id);
+                      },
+                    ),
                   ),
                 ),
               );
