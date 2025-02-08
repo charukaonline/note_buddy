@@ -7,11 +7,11 @@ class EditNoteScreen extends StatefulWidget {
   final String initialContent;
 
   const EditNoteScreen({
-    Key? key,
+    super.key,
     required this.noteId,
     required this.initialTitle,
     required this.initialContent,
-  }) : super(key: key);
+  });
 
   @override
   _EditNoteScreenState createState() => _EditNoteScreenState();
