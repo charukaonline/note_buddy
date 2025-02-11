@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../../services/firestore_service.dart';
-import '../home/home_screen.dart';
 
 class AddNoteScreen extends StatefulWidget {
   const AddNoteScreen({super.key});

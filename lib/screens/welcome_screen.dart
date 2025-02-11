@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../screens/auth/signup_screen.dart';
+import '../screens/auth/login_screen.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
@@ -31,13 +31,19 @@ class WelcomeScreen extends StatelessWidget {
                 style: Theme.of(context).textTheme.bodyLarge,
                 textAlign: TextAlign.center,
               ),
+              const SizedBox(height: 5.0),
+              Text(
+                'Developed by CNK',
+                style: Theme.of(context).textTheme.bodyMedium,
+                textAlign: TextAlign.center,
+              ),
               const SizedBox(height: 48.0),
               ElevatedButton(
                 onPressed: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => SignupScreen(),
+                      builder: (context) => LoginScreen(),
                     ),
                   );
                 },
